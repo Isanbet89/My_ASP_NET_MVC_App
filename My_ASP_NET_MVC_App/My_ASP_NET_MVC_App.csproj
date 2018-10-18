@@ -211,7 +211,6 @@
     <Compile Include="Models\Purchase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Content Include="Views\Delete1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\Bookstore.mdf" />
