@@ -39,6 +39,12 @@ namespace My_ASP_NET_MVC_App.Controllers
             return "Спасибо," + purchase.Person + ", за покупку!";
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            db.Dispose();
+            base.Dispose(disposing);
+        }
+
         /*
         public ActionResult Index()
         {
