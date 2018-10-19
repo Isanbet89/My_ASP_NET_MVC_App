@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using My_ASP_NET_MVC_App.Util;
 using My_ASP_NET_MVC_App.Models;
+using System.Data.Entity;
 
 namespace My_ASP_NET_MVC_App.Controllers
 {
@@ -11,6 +13,17 @@ namespace My_ASP_NET_MVC_App.Controllers
     {
         // создаем контекст данных
         BookContext db = new BookContext();
+
+        public ActionResult GetHtml()
+        {
+            return new HtmlResult("<h2>Привет мир!</h2>");
+        }
+
+        public ActionResult GetImage()
+        {
+            string path = "../Images/1.jpg";
+            return new ImageResult(path);
+        }
 
         public ActionResult Index()
         {
@@ -23,11 +36,35 @@ namespace My_ASP_NET_MVC_App.Controllers
         }
 
         [HttpGet]
+        public ActionResult EditBook(int? id)
+        {
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+            Book book = db.Books.Find(id);
+            if (book != null)
+            {
+                return View(book);
+            }
+            return HttpNotFound();
+        }
+
+        [HttpPost]
+        public ActionResult EditBook(Book book)
+        {
+            db.Entry(book).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
         public ActionResult Buy(int id)
         {
             ViewBag.BookId = id;
             return View();
         }
+
         [HttpPost]
         public string Buy(Purchase purchase)
         {

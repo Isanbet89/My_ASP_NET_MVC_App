@@ -13,5 +13,20 @@
         </ul>
     </nav>
     @RenderBody()
+    <footer>
+        @if (IsSectionDefined("Footer"))
+        {
+            @RenderSection("Footer")
+        }
+        else
+        {
+            <span>Содержание элемента footer по умолчанию.</span>
+        }
+    </footer>
+
+    <!-- здесь остальное содержание -->
+    @section Footer {
+        Все права защищены. Syte Corp. 2012.
+    }
 </body>
 </html> 
